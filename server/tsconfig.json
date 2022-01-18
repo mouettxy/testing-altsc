@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "target": "esnext",
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "sourceMap": true,
+    "outDir": "build",
+    "baseUrl": ".",
+    "module": "commonjs",
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["build", "node_modules"]
+}

@@ -1,0 +1,16 @@
+version: "3.3"
+
+services:
+  mongodb_altsc:
+    container_name: mongodb_altsc
+    image: mongo:4.4.5
+    restart: always
+    command: --quiet --logpath /dev/null
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "9Dv5vk9DaPwTkHEj"
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./init/init-database.js:/docker-entrypoint-initdb.d/database-init.js:ro
+      - ./data:/data/db

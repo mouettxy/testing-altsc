@@ -1,0 +1,6 @@
+{
+  "name": "testing-altsc",
+  "scripts": {
+    "db": "docker-compose --file ./database/docker-compose.yml up -d"
+  }
+}
