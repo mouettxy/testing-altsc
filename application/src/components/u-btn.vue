@@ -4,9 +4,9 @@ import type { PropType } from 'vue'
 const props = defineProps({
   variant: {
     required: false,
-    type: String as PropType<'primary' | 'text'>,
+    type: String as PropType<'primary' | 'text' | 'icon'>,
     default: 'primary',
-    validator: (v: string) => ['primary', 'text'].includes(v),
+    validator: (v: string) => ['primary', 'text', 'icon'].includes(v),
   },
 
   link: {
