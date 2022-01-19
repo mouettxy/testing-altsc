@@ -1,6 +1,6 @@
 import _axios from 'axios'
 import { useUserStore } from '~/stores/user'
-export const SERVER_URI = 'localhost:8000'
+export const SERVER_URI = 'http://localhost:8000'
 
 const userStore = useUserStore()
 
