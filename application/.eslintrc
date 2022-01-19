@@ -15,7 +15,8 @@
       "tabWidth": 2,
       "useTabs": false,
       "endOfLine": "auto",
-      "semi": false
+      "semi": false,
+      "htmlWhitespaceSensitivity": "ignore"
     }],
     "no-console": "warn",
     "curly": ["error", "all"],
