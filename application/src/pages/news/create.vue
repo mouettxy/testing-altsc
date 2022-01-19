@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMutation } from 'vue-query'
+import { useMutation, useQueryClient } from 'vue-query'
 import type { NewsEntryCreate } from '~/api/news'
 import { createNewsEntry } from '~/api/news'
 
@@ -8,20 +8,26 @@ const model = reactive({
   description: '',
 })
 
+const queryClient = useQueryClient()
+
 const { isLoading, isError, error, isSuccess, mutate } = useMutation(
-  (payload: NewsEntryCreate) => createNewsEntry(payload)
+  (payload: NewsEntryCreate) => createNewsEntry(payload),
+  {
+    onSuccess(response) {
+      model.title = ''
+      model.description = ''
+
+      queryClient.setQueryData(
+        ['news', { _id: response.data._id }],
+        response.data
+      )
+    },
+  }
 )
 
 function handleCreate() {
   mutate(model)
 }
-
-watch([isSuccess], (value) => {
-  if (value) {
-    model.title = ''
-    model.description = ''
-  }
-})
 </script>
 
 <template>
