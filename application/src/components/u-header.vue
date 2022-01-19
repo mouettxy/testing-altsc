@@ -2,6 +2,9 @@
 import { useHeading } from '~/composables/useHeading'
 
 const heading = useHeading()
+
+const router = useRouter()
+const route = useRoute()
 </script>
 
 <template>
@@ -16,6 +19,25 @@ const heading = useHeading()
         md:flex-row md:items-center
       "
     >
+      <u-btn
+        v-if="route.name !== 'index'"
+        class="mt-0.5 mr-2"
+        variant="icon"
+        @click="router.back()"
+      >
+        <svg
+          class="w-6 h-6 block"
+          aria-hidden="true"
+          role="img"
+          preserveAspectRatio="xMidYMid meet"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M15.41 16.58L10.83 12l4.58-4.59L14 6l-6 6l6 6l1.41-1.42z"
+            fill="currentColor"
+          />
+        </svg>
+      </u-btn>
       <u-heading
         varaint="h1"
         class="text-center md:text-left"
