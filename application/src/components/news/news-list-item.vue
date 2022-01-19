@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { useMutation, useQueryClient } from 'vue-query'
 import { useUserStore } from '~/stores/user'
+import { deleteNewsEntry } from '~/api/news'
 
 defineProps({
   newsId: {
@@ -19,7 +21,19 @@ defineProps({
   },
 })
 
+const queryClient = useQueryClient()
+
 const userStore = useUserStore()
+
+const { mutate } = useMutation((payload: string) => deleteNewsEntry(payload), {
+  onSuccess(response) {
+    queryClient.invalidateQueries(['news', response.data._id])
+  },
+})
+
+const handleDelete = (id: string) => {
+  mutate(id)
+}
 </script>
 
 <template>
@@ -58,7 +72,7 @@ const userStore = useUserStore()
           </u-btn>
         </router-link>
 
-        <u-btn variant="icon">
+        <u-btn variant="icon" @click="handleDelete(newsId)">
           <svg
             aria-hidden="true"
             class="block w-6 h-6 text-red-400"
