@@ -25,7 +25,7 @@ export const createNewsEntry = async (payload: NewsEntryCreate) =>
   axios.post<NewsEntry>('/news', payload)
 
 export const updateNewsEntry = async (id: string, payload: NewsEntryUpdate) =>
-  axios.put<Partial<NewsEntry>>(`/news/${id}`, payload)
+  axios.patch<Partial<NewsEntry>>(`/news/${id}`, payload)
 
 export const deleteNewsEntry = async (id: string) =>
   axios.delete<NewsEntry>(`/news/${id}`)
