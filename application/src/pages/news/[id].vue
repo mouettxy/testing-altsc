@@ -1,15 +1,29 @@
 <script setup lang="ts">
+import { useQuery } from 'vue-query'
+import { getNewsEntry } from '~/api/news'
+
 const route = useRoute()
 
-const title = 'Выбранный нами инновационный путь оправдал надежды граждан'
-const description =
-  'Предварительные выводы неутешительны: сложившаяся структура организации представляет собой интересный эксперимент проверки поэтапного и последовательного развития общества. С учётом сложившейся международной обстановки, экономическая повестка сегодняшнего дня требует от нас анализа новых принципов формирования материально-технической и кадровой базы. Идейные соображения высшего порядка, а также высокотехнологичная концепция общественного уклада способствует повышению качества переосмысления внешнеэкономических политик.'
+const { isSuccess, isError, error, data } = useQuery(
+  ['news', { _id: route.params.id }],
+  () => getNewsEntry(route.params.id as string)
+)
+
+const newsEntry = computed(() => {
+  return data.value?.data || { title: '', description: '' }
+})
 </script>
 
 <template>
   <div class="w-full grid grid-cols-1 px-8 xl:grid-cols-2 xl:px-0">
-    <u-heading variant="h2" :title="title" />
-    <p class="py-0 xl:py-4 leading-relaxed">{{ description }}</p>
+    <u-alert v-if="isError" color="bg-orange-200">
+      {{ error }}
+    </u-alert>
+
+    <template v-if="isSuccess">
+      <u-heading variant="h2" :title="newsEntry.title" />
+      <p class="py-0 xl:py-4 leading-relaxed">{{ newsEntry.description }}</p>
+    </template>
   </div>
 </template>
 
