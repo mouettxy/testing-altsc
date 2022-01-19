@@ -1,8 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserStore } from '~/stores/user'
+
+const userStore = useUserStore()
+</script>
 
 <template>
   <div class="container px-8 xl:px-0">
     <router-link
+      v-if="userStore.isLoggedIn"
       v-slot="{ href, navigate }"
       :to="{ name: 'newsItemCreate' }"
       custom

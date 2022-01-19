@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useUserStore } from '~/stores/user'
+
 defineProps({
   newsId: {
     required: false,
@@ -16,6 +18,8 @@ defineProps({
     default: '',
   },
 })
+
+const userStore = useUserStore()
 </script>
 
 <template>
@@ -32,7 +36,7 @@ defineProps({
         flex flex-col
       "
     >
-      <div class="ml-auto flex space-x-2">
+      <div v-if="userStore.isLoggedIn" class="ml-auto flex space-x-2">
         <router-link
           v-slot="{ href, navigate }"
           :to="{ name: 'newsItemEdit', params: { id: newsId } }"
