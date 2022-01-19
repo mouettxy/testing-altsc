@@ -19,9 +19,9 @@ export interface UserRegisterPayload {
 }
 
 export const userLogin = (payload: UserLoginPayload) =>
-  axios.post('/auth/login', payload)
+  axios.value.post('/auth/login', payload)
 
 export const userRegister = (payload: UserRegisterPayload): Promise<User> =>
-  axios.post('/auth/register', payload)
+  axios.value.post('/auth/register', payload)
 
-export const userCheck = (): Promise<User> => axios.get('/auth/me')
+export const userCheck = (): Promise<User> => axios.value.get('/auth/me')

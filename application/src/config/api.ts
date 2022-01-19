@@ -8,10 +8,12 @@ const authorization = computed(() =>
   userStore.token ? `Bearer ${userStore.token}` : ''
 )
 
-export const axios = _axios.create({
-  baseURL: SERVER_URI,
-  headers: {
-    'Content-type': 'application/json',
-    Authorization: authorization.value,
-  },
+export const axios = computed(() => {
+  return _axios.create({
+    baseURL: SERVER_URI,
+    headers: {
+      'Content-type': 'application/json',
+      Authorization: authorization.value,
+    },
+  })
 })
