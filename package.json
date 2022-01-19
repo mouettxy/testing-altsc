@@ -1,6 +1,9 @@
 {
   "name": "testing-altsc",
   "scripts": {
-    "db": "docker-compose --file ./database/docker-compose.yml up -d"
+    "install-deps": "cd server && pnpm i && cd ../application && pnpm i && cd ..",
+    "db": "docker-compose --file ./database/docker-compose.yml up -d",
+    "server": "cd server && pnpm dev",
+    "application": "cd application && pnpm dev"
   }
 }
