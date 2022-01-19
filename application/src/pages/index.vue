@@ -1,7 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>Главная</div>
+  <div class="container">
+    <news-list />
+  </div>
 </template>
 
 <route lang="yaml">

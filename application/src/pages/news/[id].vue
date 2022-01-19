@@ -7,3 +7,9 @@ const route = useRoute()
     {{ route.params.id }}
   </div>
 </template>
+
+<route lang="yaml">
+name: newsItem
+meta:
+  layout: default
+</route>
