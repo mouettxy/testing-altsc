@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps({
-  value: {
+  modelValue: {
     required: false,
     type: [String, Number],
     default: '',
@@ -20,7 +20,7 @@ const props = defineProps({
 
 const emits = defineEmits(['update:modelValue'])
 
-const model = useVModel(props, 'value', emits)
+const model = useVModel(props, 'modelValue', emits)
 </script>
 
 <template>
