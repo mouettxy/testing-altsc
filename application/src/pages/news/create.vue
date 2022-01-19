@@ -1,17 +1,49 @@
 <script setup lang="ts">
-const route = useRoute()
+import { useMutation } from 'vue-query'
+import type { NewsEntry } from '~/api/news'
+import { createNewsEntry } from '~/api/news'
 
 const model = reactive({
   title: '',
   description: '',
 })
+
+const { isLoading, isError, error, isSuccess, mutate } = useMutation(
+  (payload: NewsEntry) => createNewsEntry(payload)
+)
+
+function handleCreate() {
+  mutate(model)
+}
+
+watch([isSuccess], (value) => {
+  if (value) {
+    model.title = ''
+    model.description = ''
+  }
+})
 </script>
 
 <template>
   <div class="px-8 xl:px-0">
+    <u-alert v-if="isError" color="bg-orange-200">
+      {{ error }}
+    </u-alert>
+    <u-alert v-if="isSuccess" color="bg-green-200">
+      Новость успешно создана
+    </u-alert>
+
     <u-input v-model="model.title" label="Заголовок" />
     <u-textarea v-model="model.description" rows="8" label="Контент" />
-    <u-btn variant="primary" class="w-full">Создать новость</u-btn>
+
+    <u-btn
+      variant="primary"
+      :disabled="isLoading"
+      class="w-full"
+      @click="handleCreate"
+    >
+      Создать новость
+    </u-btn>
   </div>
 </template>
 
