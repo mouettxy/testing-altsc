@@ -1,7 +1,32 @@
 <script setup lang="ts">
+import { useMutation } from 'vue-query'
+import type { UserRegisterPayload } from '~/api/auth'
+import { userRegister } from '~/api/auth'
 import { useHeading } from '~/composables/useHeading'
 
 const heading = useHeading()
+
+const model = reactive({
+  email: '',
+  credentials: '',
+  password: '',
+})
+
+const { isLoading, isError, error, isSuccess, mutate } = useMutation(
+  (payload: UserRegisterPayload) => userRegister(payload)
+)
+
+function handleRegister() {
+  mutate(model)
+}
+
+watch([isSuccess], (value) => {
+  if (value) {
+    model.email = ''
+    model.credentials = ''
+    model.password = ''
+  }
+})
 </script>
 
 <template>
@@ -9,10 +34,31 @@ const heading = useHeading()
     <u-heading variant="h1" class="text-center mb-4" :title="heading" />
     <div class="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
       <div class="px-5 py-7">
-        <u-input label="ФИО" />
-        <u-input label="Почта" />
-        <u-input label="Пароль" type="password" />
-        <u-btn variant="primary" class="w-full">Зарегистрироваться</u-btn>
+        <p
+          v-if="isError"
+          class="text-black bg-orange-200 px-4 py-2 rounded-md mb-4"
+        >
+          {{ error }}
+        </p>
+        <p
+          v-if="isSuccess"
+          class="text-black bg-green-200 px-4 py-2 rounded-md mb-4"
+        >
+          Вы успешно зарегистрированы
+        </p>
+
+        <u-input v-model="model.credentials" label="ФИО" />
+        <u-input v-model="model.email" label="Почта" />
+        <u-input v-model="model.password" label="Пароль" type="password" />
+
+        <u-btn
+          variant="primary"
+          :disabled="isLoading"
+          class="w-full"
+          @click="handleRegister"
+        >
+          Зарегистрироваться
+        </u-btn>
       </div>
 
       <div class="p-4">
