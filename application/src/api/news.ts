@@ -1,23 +1,31 @@
 import { axios } from '~/config/api'
 
 export interface NewsEntry {
+  _id: string
   title: string
   description: string
 }
 
-export const getAllNews = async (): Promise<NewsEntry[]> =>
-  axios.value.get('/news')
+export interface NewsEntryCreate {
+  title: string
+  description: string
+}
 
-export const getNewsEntry = async (id: string): Promise<NewsEntry> =>
-  axios.value.get(`/news/${id}`)
+export interface NewsEntryUpdate {
+  title?: string
+  description?: string
+}
 
-export const createNewsEntry = async (payload: NewsEntry): Promise<NewsEntry> =>
-  axios.value.post('/news', payload)
+export const getAllNews = async () => axios.get<NewsEntry[]>('/news')
 
-export const updateNewsEntry = async (
-  id: string,
-  payload: NewsEntry
-): Promise<Partial<NewsEntry>> => axios.value.put(`/news/${id}`, payload)
+export const getNewsEntry = async (id: string) =>
+  axios.get<NewsEntry>(`/news/${id}`)
 
-export const deleteNewsEntry = async (id: string): Promise<NewsEntry> =>
-  axios.value.delete(`/news/${id}`)
+export const createNewsEntry = async (payload: NewsEntryCreate) =>
+  axios.post<NewsEntry>('/news', payload)
+
+export const updateNewsEntry = async (id: string, payload: NewsEntryUpdate) =>
+  axios.put<Partial<NewsEntry>>(`/news/${id}`, payload)
+
+export const deleteNewsEntry = async (id: string) =>
+  axios.delete<NewsEntry>(`/news/${id}`)

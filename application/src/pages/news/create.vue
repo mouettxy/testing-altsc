@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useMutation } from 'vue-query'
-import type { NewsEntry } from '~/api/news'
+import type { NewsEntryCreate } from '~/api/news'
 import { createNewsEntry } from '~/api/news'
 
 const model = reactive({
@@ -9,7 +9,7 @@ const model = reactive({
 })
 
 const { isLoading, isError, error, isSuccess, mutate } = useMutation(
-  (payload: NewsEntry) => createNewsEntry(payload)
+  (payload: NewsEntryCreate) => createNewsEntry(payload)
 )
 
 function handleCreate() {

@@ -2,18 +2,21 @@ import _axios from 'axios'
 import { useUserStore } from '~/stores/user'
 export const SERVER_URI = 'http://localhost:8000'
 
-const userStore = useUserStore()
+export const axios = _axios.create({
+  baseURL: SERVER_URI,
+  headers: {
+    'Content-type': 'application/json',
+  },
+})
 
-const authorization = computed(() =>
-  userStore.token ? `Bearer ${userStore.token}` : ''
-)
+axios.interceptors.request.use((config) => {
+  const userStore = useUserStore()
 
-export const axios = computed(() => {
-  return _axios.create({
-    baseURL: SERVER_URI,
-    headers: {
-      'Content-type': 'application/json',
-      Authorization: authorization.value,
-    },
-  })
+  if (config.headers) {
+    config.headers.Authorization = userStore.token
+      ? `Bearer ${userStore.token}`
+      : ''
+  }
+
+  return config
 })
