@@ -1,10 +1,19 @@
 <script setup lang="ts">
 import { useHeading } from '~/composables/useHeading'
+import { useUserStore } from '~/stores/user'
 
 const heading = useHeading()
 
 const router = useRouter()
 const route = useRoute()
+
+const userStore = useUserStore()
+
+const handleLogout = () => {
+  userStore.logoutUser()
+
+  router.push({ name: 'login' })
+}
 </script>
 
 <template>
@@ -49,20 +58,29 @@ const route = useRoute()
         <u-heading varaint="h1" :title="heading" />
       </div>
       <div class="mx-auto space-x-2 md:ml-auto md:mr-0">
-        <router-link v-slot="{ href, navigate }" :to="{ name: 'login' }" custom>
-          <u-btn variant="primary" link :href="href" @click="navigate">
-            Вход
-          </u-btn>
-        </router-link>
-        <router-link
-          v-slot="{ href, navigate }"
-          :to="{ name: 'register' }"
-          custom
-        >
-          <u-btn variant="text" link :href="href" @click="navigate">
-            Регистрация
-          </u-btn>
-        </router-link>
+        <template v-if="!userStore.isLoggedIn">
+          <router-link
+            v-slot="{ href, navigate }"
+            :to="{ name: 'login' }"
+            custom
+          >
+            <u-btn variant="primary" link :href="href" @click="navigate">
+              Вход
+            </u-btn>
+          </router-link>
+          <router-link
+            v-slot="{ href, navigate }"
+            :to="{ name: 'register' }"
+            custom
+          >
+            <u-btn variant="text" link :href="href" @click="navigate">
+              Регистрация
+            </u-btn>
+          </router-link>
+        </template>
+        <template v-else>
+          <u-btn variant="text" @click="handleLogout">Выйти</u-btn>
+        </template>
       </div>
     </div>
   </header>
