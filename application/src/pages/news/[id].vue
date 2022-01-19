@@ -11,5 +11,6 @@ const route = useRoute()
 <route lang="yaml">
 name: newsItem
 meta:
+  heading: Просмотр новости
   layout: default
 </route>

@@ -1,6 +1,12 @@
+<script setup lang="ts">
+import { useHeading } from '~/composables/useHeading'
+
+const heading = useHeading()
+</script>
+
 <template>
   <div class="p-8 xs:p-0 mx-auto md:w-full md:max-w-md">
-    <u-heading variant="h1" class="text-center mb-4" title="Регистрация" />
+    <u-heading variant="h1" class="text-center mb-4" :title="heading" />
     <div class="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
       <div class="px-5 py-7">
         <u-input label="ФИО" />
@@ -32,5 +38,6 @@
 <route lang="yaml">
 name: register
 meta:
+  heading: Регистрация
   layout: centered
 </route>
