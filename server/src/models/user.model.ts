@@ -11,8 +11,8 @@ export interface IUser {
 }
 
 export interface IUserToAuthJSON {
+  id: string
   credentials: string
-  name: string
   email: string
 }
 
