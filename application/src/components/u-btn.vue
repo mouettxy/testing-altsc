@@ -17,6 +17,8 @@ const props = defineProps({
 
 const btnVariants = {
   primary: [
+    'px-6',
+    'py-2',
     'bg-blue-500',
     'hover:bg-blue-600',
     'focus:bg-blue-700',
@@ -30,6 +32,18 @@ const btnVariants = {
     'font-semibold',
   ],
   text: [
+    'px-6',
+    'py-2',
+    'text-gray-500',
+    'hover:bg-gray-100',
+    'focus:outline-none',
+    'focus:bg-gray-200',
+    'focus:ring',
+    'focus:ring-gray-400',
+    'focus:ring-opacity-50',
+  ],
+  icon: [
+    'p-2',
     'text-gray-500',
     'hover:bg-gray-100',
     'focus:outline-none',
@@ -57,8 +71,6 @@ const btnComponent = computed(() => {
     class="
       transition
       duration-150
-      px-6
-      py-2
       cursor-pointer
       font-normal
       text-sm
